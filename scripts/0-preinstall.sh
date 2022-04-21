@@ -30,7 +30,7 @@ iso=$(curl -4 ifconfig.co/country-iso)
 timedatectl set-ntp true
 pacman -S --noconfirm --needed pacman-contrib terminus-font
 setfont ter-v22b
-pacman -S artix-archlinux-support
+pacman -S --noconfirm artix-archlinux-support
 echo -e '\n# Arch\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n\n[community]\nInclude = /etc/pacman.d/mirrorlist-arch\n\n[multilib]\nInclude = /etc/pacman.d/mirrorlist-arch' >> /etc/pacman.conf
 pacman -Syy
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
@@ -57,7 +57,7 @@ echo -ne "
 umount -A --recursive /mnt # make sure everything is unmounted before we start
 # disk prep
 sgdisk -Z ${DISK} # zap all on disk
-sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 alignment
+sgdisk -a 2048 -o ${DISK} # new gpt disk 2048 aliglnment
 
 # create partitions
 sgdisk -n 1::+1M --typecode=1:ef02 --change-name=1:'BIOSBOOT' ${DISK} # partition 1 (BIOS Boot Partition)
@@ -153,7 +153,7 @@ echo -ne "
                     Arch Install on Main Drive
 -------------------------------------------------------------------------
 "
-pacstrap /mnt base base-devel linux linux-firmware vim nano sudo archlinux-keyring wget libnewt --noconfirm --needed
+basestrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim sudo doas artix-keyring archlinux-keyring wget libnewt openrc elogind-openrc --noconfirm --needed
 echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
@@ -171,7 +171,7 @@ echo -ne "
 if [[ ! -d "/sys/firmware/efi" ]]; then
     grub-install --boot-directory=/mnt/boot ${DISK}
 else
-    pacstrap /mnt efibootmgr --noconfirm --needed
+    basestrap /mnt efibootmgr --noconfirm --needed
 fi
 echo -ne "
 -------------------------------------------------------------------------
