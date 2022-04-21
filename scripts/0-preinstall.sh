@@ -32,16 +32,16 @@ pacman -S --noconfirm --needed pacman-contrib terminus-font gptfdisk
 setfont ter-v22b
 pacman -S --noconfirm artix-archlinux-support
 echo -e '\n# Arch\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n\n[community]\nInclude = /etc/pacman.d/mirrorlist-arch\n\n[multilib]\nInclude = /etc/pacman.d/mirrorlist-arch' >> /etc/pacman.conf
-pacman -Syy
+pacman -Sy
 sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 pacman -S --noconfirm --needed reflector rsync grub
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+cp /etc/pacman.d/mirrorlist-arch /etc/pacman.d/mirrorlist-arch.backup
 echo -ne "
 -------------------------------------------------------------------------
                     Setting up $iso mirrors for faster downloads
 -------------------------------------------------------------------------
 "
-reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist
+reflector -a 48 -c $iso -f 5 -l 20 --sort rate --save /etc/pacman.d/mirrorlist-arch
 mkdir /mnt &>/dev/null # Hiding error message if any
 echo -ne "
 -------------------------------------------------------------------------
@@ -154,9 +154,8 @@ echo -ne "
 -------------------------------------------------------------------------
 "
 basestrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim sudo doas artix-keyring archlinux-keyring wget libnewt openrc elogind-openrc --noconfirm --needed
-echo "keyserver hkp://keyserver.ubuntu.com" >> /mnt/etc/pacman.d/gnupg/gpg.conf
 cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
-cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+cp /etc/pacman.d/mirrorlist-arch /mnt/etc/pacman.d/mirrorlist-arch
 
 genfstab -L /mnt >> /mnt/etc/fstab
 echo " 
