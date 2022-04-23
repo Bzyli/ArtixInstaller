@@ -20,7 +20,7 @@ echo -ne "
   ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
 -------------------------------------------------------------------------
-                    Automated Arch Linux Installer
+                    Automated Artix Linux Installer
 -------------------------------------------------------------------------
 
 Setting up mirrors for optimal download
@@ -150,14 +150,13 @@ if ! grep -qs '/mnt' /proc/mounts; then
 fi
 echo -ne "
 -------------------------------------------------------------------------
-                    Arch Install on Main Drive
+                    Artix Install on Main Drive
 -------------------------------------------------------------------------
 "
 basestrap /mnt base base-devel linux-zen linux-zen-headers linux-firmware vim sudo doas artix-keyring archlinux-keyring wget libnewt openrc elogind-openrc --noconfirm --needed
 cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
 cp /etc/pacman.d/mirrorlist-arch /mnt/etc/pacman.d/mirrorlist-arch
 
-pacman -S --needed --noconfirm arch-install-scripts
 fstabgen -L -U /mnt >> /mnt/etc/fstab
 echo " 
   Generated /etc/fstab:
