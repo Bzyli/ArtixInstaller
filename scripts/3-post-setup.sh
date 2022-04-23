@@ -56,6 +56,9 @@ elif [[ "${DESKTOP_ENV}" == "gnome" ]]; then
 elif [[ "${DESKTOP_ENV}" == "lxde" ]]; then
   rc-update add lxdm
 
+elif [[ "${DESKTOP_ENV}" == "xfce" ]]; then
+  rc-update add lightdm
+
 elif [[ "${DESKTOP_ENV}" == "openbox" ]]; then
   rc-update add lightdm
   if [[ "${INSTALL_TYPE}" == "FULL" ]]; then
