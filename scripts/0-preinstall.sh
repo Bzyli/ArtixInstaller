@@ -158,7 +158,7 @@ cp -R ${SCRIPT_DIR} /mnt/root/ArchTitus
 cp /etc/pacman.d/mirrorlist-arch /mnt/etc/pacman.d/mirrorlist-arch
 
 pacman -S --needed --noconfirm arch-install-scripts
-genfstab -L /mnt >> /mnt/etc/fstab
+fstabgen -L -U /mnt >> /mnt/etc/fstab
 echo " 
   Generated /etc/fstab:
 "
