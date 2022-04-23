@@ -1,14 +1,9 @@
 mesa
-xorg
-xorg-server
-xorg-apps
-xorg-drivers
-xorg-xkill
-xorg-xinit
-xterm
 binutils
 dosfstools
+linux-zen-headers
 linux-headers
+neofetch
 noto-fonts-emoji
 usbutils
 xdg-user-dirs
